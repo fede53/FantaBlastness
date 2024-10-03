@@ -1,0 +1,30 @@
+# Ignora i file di configurazione dell'ambiente locale
+.env
+.env.*
+
+# Ignora le cartelle dei log
+logs/
+*.log
+
+# Ignora le cache delle applicazioni
+cache/
+tmp/
+*.cache
+
+# Ignora i file di configurazione dell'editor
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# Ignora le dipendenze di PHP Composer
+vendor/
+
+# Ignora i file delle librerie Node.js (se presenti)
+node_modules/
+
+# Ignora le build di PHP (ad esempio, se stai usando una cartella build)
+build/
+dist/
+_docker/data__
+_docker
