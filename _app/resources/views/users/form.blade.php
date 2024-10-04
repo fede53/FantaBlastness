@@ -29,19 +29,19 @@
 
                 <div class="flex justify-between gap-6">
                     <!-- Colonna principale (sinistra) -->
-                    <div class="w-9/12 p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+                    <div class="w-9/12 p-4 sm:p-8 bg-dark-100 shadow sm:rounded-lg">
                         <!-- Nome -->
                         <div class="mb-4">
-                            <label for="name" class="block text-gray-700 font-semibold">{{ __('Name') }}</label>
-                            <input type="text" name="name" id="name" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" value="{{ old('name', $user['name'] ?? '') }}" required>
+                            <label for="name" class="block text-white font-semibold">{{ __('Name') }}</label>
+                            <input type="text" name="name" id="name" class="mt-1 block w-full rounded-md shadow-sm" value="{{ old('name', $user['name'] ?? '') }}" required>
                             @error('name')
                             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                             @enderror
                         </div>
 
                         <div class="mb-4">
-                            <label for="surname" class="block text-gray-700 font-semibold">{{ __('Surname') }}</label>
-                            <input type="text" name="surname" id="surname" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" value="{{ old('surname', $user['surname'] ?? '') }}" required>
+                            <label for="surname" class="block text-white font-semibold">{{ __('Surname') }}</label>
+                            <input type="text" name="surname" id="surname" class="mt-1 block w-full rounded-md shadow-sm" value="{{ old('surname', $user['surname'] ?? '') }}" required>
                             @error('surname')
                             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                             @enderror
@@ -49,8 +49,8 @@
 
                         <!-- Email -->
                         <div class="mb-4">
-                            <label for="email" class="block text-gray-700 font-semibold">{{ __('Email') }}</label>
-                            <input type="email" name="email" id="email" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" value="{{ old('email', $user['email'] ?? '') }}" required>
+                            <label for="email" class="block text-white font-semibold">{{ __('Email') }}</label>
+                            <input type="email" name="email" id="email" class="mt-1 block w-full rounded-md shadow-sm" value="{{ old('email', $user['email'] ?? '') }}" required>
                             @error('email')
                             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                             @enderror
@@ -58,8 +58,8 @@
 
                         <!-- Ruolo -->
                         <div class="mb-4">
-                            <label for="role_id" class="block text-gray-700 font-semibold">{{ __('Role') }}</label>
-                            <select name="role_id" id="role_id" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
+                            <label for="role_id" class="block text-white font-semibold">{{ __('Role') }}</label>
+                            <select name="role_id" id="role_id" class="mt-1 block w-full rounded-md shadow-sm" required>
                                 @foreach ($roles as $role)
                                     <option value="{{ $role['id'] }}" {{ old('role_id', $user['role_id'] ?? '') == $role['id'] ? 'selected' : '' }}>
                                         {{ $role['name'] }}
@@ -73,16 +73,16 @@
 
                         <!-- Password -->
                         <div class="mb-4">
-                            <label for="password" class="block text-gray-700 font-semibold">{{ isset($user) ? __('New Password') : __('Password') }}</label>
+                            <label for="password" class="block text-white font-semibold">{{ isset($user) ? __('New Password') : __('Password') }}</label>
                             <div class="relative">
-                                <input type="password" name="password" id="password" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" {{ isset($user) ? '' : 'required' }}>
+                                <input type="password" name="password" id="password" class="mt-1 block w-full rounded-md shadow-sm" {{ isset($user) ? '' : 'required' }}>
                                 <div class="flex space-x-2 mt-2">
                                     <!-- Pulsante Genera Password -->
-                                    <button type="button" id="generate-password" class="bg-blast-600 hover:bg-blast-700 text-white font-semibold py-1 px-3 rounded">
+                                    <button type="button" id="generate-password" class="bg-primary hover:bg-primary text-white font-semibold py-1 px-3 rounded">
                                         {{ __('Generate Password') }}
                                     </button>
                                     <!-- Pulsante Mostra Password -->
-                                    <button type="button" id="toggle-password" class="bg-blast-600 hover:bg-blast-700 text-white font-semibold py-1 px-3 rounded">
+                                    <button type="button" id="toggle-password" class="bg-primary hover:bg-primary text-white font-semibold py-1 px-3 rounded">
                                         {{ __('Show Password') }}
                                     </button>
                                 </div>
@@ -94,25 +94,25 @@
 
                         <!-- Conferma Password -->
                         <div class="mb-4">
-                            <label for="password_confirmation" class="block text-gray-700 font-semibold">{{ __('Confirm Password') }}</label>
-                            <input type="password" name="password_confirmation" id="password_confirmation" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" {{ isset($user) ? '' : 'required' }}>
+                            <label for="password_confirmation" class="block text-white font-semibold">{{ __('Confirm Password') }}</label>
+                            <input type="password" name="password_confirmation" id="password_confirmation" class="mt-1 block w-full rounded-md shadow-sm" {{ isset($user) ? '' : 'required' }}>
                         </div>
                     </div>
 
                     <!-- Colonna gestione immagine (destra) -->
                     <div class="w-3/12 p-4 pt-0 sm:pr-8 sm:pb-8 sm:pl-8 flex flex-col items-center">
-                        <label for="image" class="block text-gray-700 font-semibold text-center">{{ __('Profile Picture') }}</label>
+                        <label for="image" class="block text-white font-semibold text-center">{{ __('Profile Picture') }}</label>
                         <div class="mt-4 relative flex justify-center">
                             <img id="image-preview" src="{{ isset($user) && $user['image'] ? asset('storage/' . $user['image']) : '' }}"
                                  alt=""
-                                 class="w-24 h-24 rounded-full object-cover border border-gray-300"
+                                 class="w-24 h-24 rounded-full object-cover border"
                                  style="width: 150px; height: 150px;"
                             >
                             <button type="button" id="delete-image" class="{{ !isset($user['image']) ? 'hidden' : '' }} remove-bonus-pre absolute top-2 right-2 bg-red-600 hover:bg-red-700 text-white flex items-center justify-center w-8 h-8 rounded-full">
                                 X
                             </button>
                         </div>
-                        <label for="image" class="bg-blast-600 hover:bg-blast-700 text-white font-semibold py-2 px-4 rounded cursor-pointer inline-block mt-4 text-center">
+                        <label for="image" class="bg-primary hover:bg-primary text-white font-semibold py-2 px-4 rounded cursor-pointer inline-block mt-4 text-center">
                             {{ __('Choose File') }}
                         </label>
                         <input type="hidden" name="image_deleted" id="image_deleted" value="0" class="hidden">
@@ -124,11 +124,11 @@
                 </div>
 
                 <!-- Barra fissa con i pulsanti -->
-                <div class="fixed bottom-0 left-0 right-0 bg-gray-100 border-t border-gray-300 py-3 px-6 flex justify-end">
-                    <a href="{{ route('users.index') }}" class="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 px-4 rounded mr-2">
+                <div class="fixed bottom-0 left-0 right-0 bg-dark dark:bg-dark  py-3 px-6 flex justify-end">
+                    <a href="{{ route('users.index') }}" class="bg-primary hover:bg-primary text-white font-semibold py-2 px-4 rounded mr-2">
                         {{ __('Cancel') }}
                     </a>
-                    <button type="submit" class="bg-blast-600 hover:bg-blast-700 text-white font-semibold py-2 px-4 rounded">
+                    <button type="submit" class="bg-primary hover:bg-primary text-white font-semibold py-2 px-4 rounded">
                         {{ isset($user) ? __('Update User') : __('Create User') }}
                     </button>
                 </div>

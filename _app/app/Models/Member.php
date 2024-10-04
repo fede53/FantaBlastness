@@ -11,6 +11,7 @@ class Member extends Model
 
     protected $fillable = [
         'name',
+        'fantaname',
         'image',
         'characteristics'
     ];
@@ -20,6 +21,7 @@ class Member extends Model
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'fantaname' => $this->fantaname,
             'image' => $this->image!=null ? 'members/' . $this->image : null,
             'thumbnail' => $this->image!=null ? 'members/thumbnails/' . $this->image : null,
             'characteristics' => json_decode($this->characteristics, true)
@@ -45,6 +47,7 @@ class Member extends Model
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'fantaname' => $this->fantaname,
             'image' => $this->image!=null ? 'members/' . $this->image : null,
             'thumbnail' => $this->image!=null ? 'members/thumbnails/' . $this->image : null,
             'characteristics' => json_decode($this->characteristics, true),

@@ -5,30 +5,30 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-            <h2 class="text-2xl font-semibold text-gray-800 mb-6">Upcoming Events</h2>
+            <h2 class="text-2xl font-semibold text-white mb-6">Upcoming Events</h2>
 
             <!-- Lista degli eventi -->
             <div class="flex flex-wrap space-y-6"> <!-- Flex container per centrare le card -->
                 @forelse ($events as $event)
                     <!-- Card per ogni evento al 60% della larghezza -->
-                    <div class="bg-white shadow-lg rounded-lg overflow-hidden w-3/5">
+                    <div class="bg-dark-100 shadow-lg rounded-lg overflow-hidden w-3/5">
 
                         @if($event['image'])
                             <img src="{{ asset('storage/' . $event['image']) }}" alt="Event Image" class="w-full h-96 object-cover">
                         @endif
 
                         <div class="p-6">
-                            <h3 class="text-xl font-bold text-gray-800 mb-2">{{ $event['name'] }}</h3>
-                            <p class="text-gray-600 mb-4">
-                                {!! Str::limit($event['description'], 150) !!} <!-- Descrizione con limite a 150 caratteri -->
+                            <h3 class="text-xl font-bold text-white mb-2">{{ $event['name'] }}</h3>
+                            <p class="text-white mb-4">
+                                {!! Str::limit($event['description'], 192) !!} <!-- Descrizione con limite a 150 caratteri -->
                             </p>
-                            <p class="text-gray-500 text-sm mb-4">
+                            <p class="text-white text-sm mb-4">
                                 <strong>Date:</strong> {{ \Carbon\Carbon::parse($event['date_for_partecipate'])->format('M d, Y H:i') }}
                             </p>
 
                             <!-- Countdown -->
                             @if ($event['can_partecipate'] && !$event['haveATeam'])
-                                <div id="countdown-{{ $event['id'] }}" class="text-gray-700 font-semibold mb-4">
+                                <div id="countdown-{{ $event['id'] }}" class="text-white font-semibold mb-4">
                                     Partecipa entro: <span></span>
                                 </div>
                                 <script>
@@ -56,14 +56,14 @@
                                 </script>
                             @endif
 
-                            <a href="{{ route('events.show', $event['id']) }}" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded">
+                            <a href="{{ route('events.show', $event['id']) }}" class="inline-block bg-primary text-white font-semibold py-2 px-4 rounded">
                                 Show Event
                             </a>
                         </div>
                     </div>
                 @empty
                     <!-- Messaggio se non ci sono eventi -->
-                    <p class="text-gray-500 text-center">No events available.</p>
+                    <p class="text-white text-center">No events available.</p>
                 @endforelse
             </div>
         </div>

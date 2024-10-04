@@ -13,6 +13,7 @@ class Event extends Model
     protected $fillable = [
         'name',
         'description',
+        'characteristic',
         'regulation',
         'instructions',
         'dolphins',
@@ -37,6 +38,7 @@ class Event extends Model
             'id' => $this->id,
             'name' => $this->name,
             'description' => $this->description,
+            'characteristic' => $this->characteristic,
             'regulation' => $this->regulation,
             'instructions' => $this->instructions,
             'dolphins' => $this->dolphins,
@@ -67,6 +69,7 @@ class Event extends Model
             'id' => $this->id,
             'name' => $this->name,
             'description' => $this->description,
+            'characteristic' => $this->characteristic,
             'regulation' => $this->regulation,
             'instructions' => $this->instructions,
             'dolphins' => $this->dolphins,
@@ -88,7 +91,7 @@ class Event extends Model
     {
         return $this->belongsToMany(Member::class, 'event_member')
             ->withPivot('active', 'cost')
-            ->withTimestamps()->orderBy('name');
+            ->withTimestamps()->orderBy('cost');
     }
 
     public function rules()

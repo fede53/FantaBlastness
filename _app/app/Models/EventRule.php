@@ -14,7 +14,8 @@ class EventRule extends Model
         'name',
         'description',
         'type',
-        'value'
+        'value',
+        'characteristic'
     ];
 
     protected function casts(): array
@@ -31,7 +32,8 @@ class EventRule extends Model
             'name' => $this->name,
             'description' => $this->description,
             'type' => $this->type,
-            'value' => $this->value
+            'value' => $this->value,
+            'characteristic' => $this->characteristic
         ];
     }
 

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html class="dark" lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,19 +8,23 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="font-sans antialiased">
-<div class="min-h-screen bg-gray-100">
+<body class="font-sans antialiased text-white">
+    <div class="bg-image">
+        <img src="/assets/images/linea.png">
+    </div>
+<div class="min-h-screen bg-dark dark:bg-dark">
     @include('layouts.navigation')
 
     <!-- Page Heading -->
     @isset($header)
-        <header class="bg-white shadow">
+        <header class="bg-dark-100 shadow">
             <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                 {{ $header }}
             </div>
@@ -29,13 +33,13 @@
 
     <!-- Breadcrumbs Slot -->
     @isset($breadcrumbs)
-        <nav class="bg-white py-3">
+        <!-- <nav class="bg-dark-100 py-3 dark:bg-black">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <ul class="flex items-center space-x-2 text-sm text-gray-700">
+                <ul class="flex items-center space-x-2 text-sm text-white">
                     {{ $breadcrumbs }}
                 </ul>
             </div>
-        </nav>
+        </nav> -->
     @endisset
 
     <!-- Flash Messages -->

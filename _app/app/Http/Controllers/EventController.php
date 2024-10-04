@@ -142,10 +142,12 @@ class EventController extends Controller
     {
         try {
             $event = Event::findOrFail($id)->format();
+            $maxCost = $event['members']->max('cost');
 
             return view('events.team', [
                 'event' => $event,
-                'members' => $event['members']
+                'members' => $event['members'],
+                'maxCost' => $maxCost
             ]);
 
         } catch (ModelNotFoundException $e) {
