@@ -5,6 +5,7 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Event extends Model
 {
@@ -13,6 +14,7 @@ class Event extends Model
     protected $fillable = [
         'name',
         'description',
+        'characteristic',
         'regulation',
         'instructions',
         'dolphins',
@@ -37,6 +39,7 @@ class Event extends Model
             'id' => $this->id,
             'name' => $this->name,
             'description' => $this->description,
+            'characteristic' => $this->characteristic,
             'regulation' => $this->regulation,
             'instructions' => $this->instructions,
             'dolphins' => $this->dolphins,
@@ -53,6 +56,10 @@ class Event extends Model
 
     public function formatDashboard(): array
     {
+        $member = Member::where('email', Auth::user()->email)->first();
+        $member = $member->format();
+        $eventScoreCheck = EventScore::where("event_id", $this->id)->where('member_id', $member['id'])->exists();
+
         $haveATeam = Team::where("event_id", $this->id)->where("user_id", auth()->user()->id)->exists();
 
         $bonusRules = $this->rules->filter(function ($rule) {
@@ -67,6 +74,7 @@ class Event extends Model
             'id' => $this->id,
             'name' => $this->name,
             'description' => $this->description,
+            'characteristic' => $this->characteristic,
             'regulation' => $this->regulation,
             'instructions' => $this->instructions,
             'dolphins' => $this->dolphins,
@@ -80,15 +88,16 @@ class Event extends Model
             'members' => $this->members->map->formatWithPivot()->keyBy('id'),
             'bonus' => $bonusRules,
             'malus' => $malusRules,
+            'eventScoreCheck' => $eventScoreCheck
 
         ];
     }
 
     public function members()
     {
-        return $this->belongsToMany(Member::class, 'event_member')
-            ->withPivot('active', 'cost')
-            ->withTimestamps()->orderBy('name');
+        return $this->belongsToMany(Member::class, 'event_members')
+            ->withPivot('active', 'cost', 'extra', 'extra_message')
+            ->withTimestamps()->orderBy('cost');
     }
 
     public function rules()

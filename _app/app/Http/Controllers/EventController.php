@@ -5,11 +5,14 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreEventRequest;
 use App\Http\Requests\UpdateEventRequest;
 use App\Models\Event;
+use App\Models\EventMember;
 use App\Models\EventRule;
+use App\Models\EventScore;
 use App\Models\Member;
 use App\Models\Team;
 use App\Services\ImageService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\Auth;
 
 class EventController extends Controller
 {
@@ -57,9 +60,12 @@ class EventController extends Controller
         try {
             $event = Event::findOrFail($id)->formatDashboard();
             $teams = Team::where('event_id', $id)->get()->map->format();
+            $members = EventMember::where('event_id', $id)->where('active', 1)->get()->map->formatWithScore($id);
+
             return view('events.show', [
                 'event' => $event,
-                'teams' => $teams
+                'teams' => $teams,
+                'members' => $members
             ]);
         } catch (ModelNotFoundException $e) {
             return redirect()->route('events.index')->with('error', 'Event not found.');
@@ -72,7 +78,6 @@ class EventController extends Controller
     {
         try {
             $event = Event::findOrFail($id)->format();
-
             return view('events.form', [
                 'event' => $event,
                 'members' => Member::orderBy("name")->get()->map->format()
@@ -142,10 +147,12 @@ class EventController extends Controller
     {
         try {
             $event = Event::findOrFail($id)->format();
+            $maxCost = $event['members']->max('cost');
 
             return view('events.team', [
                 'event' => $event,
-                'members' => $event['members']
+                'members' => $event['members'],
+                'maxCost' => $maxCost
             ]);
 
         } catch (ModelNotFoundException $e) {
@@ -181,6 +188,8 @@ class EventController extends Controller
             $syncData[$memberId] = [
                 'active' => isset($memberData['active']) ? 1 : 0,
                 'cost' => $memberData['cost'],
+                'extra' => $memberData['extra'],
+                'extra_message' => $memberData['extra_message']
             ];
         }
         $event->members()->sync($syncData);

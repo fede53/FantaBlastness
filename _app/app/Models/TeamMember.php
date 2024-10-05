@@ -13,7 +13,7 @@ class TeamMember extends Model
         'team_id',
         'member_id',
         'captain',
-        'cost',
+        'cost'
     ];
 
     public function format(): array
@@ -30,6 +30,16 @@ class TeamMember extends Model
     public function member()
     {
         return $this->belongsTo(Member::class);
+    }
+
+    public function eventScores()
+    {
+        return $this->hasMany(EventScore::class, 'member_id', 'member_id');
+    }
+
+    public function eventScoreForEvent($eventId)
+    {
+        return $this->eventScores()->where('event_id', $eventId)->first();
     }
 
     public function team()

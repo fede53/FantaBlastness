@@ -26,6 +26,7 @@ class MemberController extends Controller
     {
         $member = new Member([
             'name' => $request->name,
+            'fantaname' => $request->fantaname,
             'characteristics' => $request->characteristics
         ]);
 
@@ -76,6 +77,7 @@ class MemberController extends Controller
         try {
             $member = Member::findOrFail($id);
             $member->name = $request->name;
+            $member->fantaname = $request->fantaname;
             $member->characteristics = $request->characteristics;
 
             if(request()->input('image_deleted') == "1"){

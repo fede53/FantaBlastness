@@ -28,25 +28,25 @@
                 @endif
 
                 <div class="flex justify-between gap-6">
-                    <div class="w-9/12 p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+                    <div class="w-9/12 p-4 sm:p-8 bg-dark-100 shadow sm:rounded-lg">
 
                         <!-- Tab Buttons -->
                         <div class="mb-4">
-                            <ul class="flex border-b">
+                            <ul class="flex">
                                 <li class="mr-1">
-                                    <a href="#tab1" class="bg-white inline-block py-2 px-4 text-blast-500 hover:text-blast-800 font-semibold text-blast-800 border-b-2 border-blast-800" onclick="openTab(event, 'tab1')">General</a>
+                                    <a href="#tab1" class="bg-dark-100 inline-block py-2 px-4 text-white hover:text-white font-semibold text-white-2 border-primary border-b-2" onclick="openTab(event, 'tab1')">General</a>
                                 </li>
                                 <li class="mr-1">
-                                    <a href="#tab2" class="bg-white inline-block py-2 px-4 text-blast-500 hover:text-blast-800 font-semibold" onclick="openTab(event, 'tab2')">Phases</a>
+                                    <a href="#tab2" class="bg-dark-100 inline-block py-2 px-4 text-white hover:text-white font-semibold" onclick="openTab(event, 'tab2')">Phases</a>
                                 </li>
                                 <li>
-                                    <a href="#tab3" class="bg-white inline-block py-2 px-4 text-blast-500 hover:text-blast-800 font-semibold" onclick="openTab(event, 'tab3')">Team Members</a>
+                                    <a href="#tab3" class="bg-dark-100 inline-block py-2 px-4 text-white hover:text-white font-semibold" onclick="openTab(event, 'tab3')">Team Members</a>
                                 </li>
                                 <li>
-                                    <a href="#tab4" class="bg-white inline-block py-2 px-4 text-blast-500 hover:text-blast-800 font-semibold" onclick="openTab(event, 'tab4')">Bonus</a>
+                                    <a href="#tab4" class="bg-dark-100 inline-block py-2 px-4 text-white hover:text-white font-semibold" onclick="openTab(event, 'tab4')">Bonus</a>
                                 </li>
                                 <li>
-                                    <a href="#tab5" class="bg-white inline-block py-2 px-4 text-blast-500 hover:text-blast-800 font-semibold" onclick="openTab(event, 'tab5')">Malus</a>
+                                    <a href="#tab5" class="bg-dark-100 inline-block py-2 px-4 text-white hover:text-white font-semibold" onclick="openTab(event, 'tab5')">Malus</a>
                                 </li>
                             </ul>
                         </div>
@@ -67,18 +67,18 @@
                     <div class="w-3/12 p-4 pt-0 sm:pr-8 sm:pb-8 sm:pl-8">
 
                         <div class="sticky top-10 flex flex-col items-center">
-                            <label for="image" class="block text-gray-700 font-semibold text-center">{{ __('Profile Picture') }}</label>
+                            <label for="image" class="block text-white font-semibold text-center">{{ __('Profile Picture') }}</label>
                             <div class="mt-4 relative flex justify-center">
                                 <img id="image-preview" src="{{ isset($event) && $event['image'] ? asset('storage/' . $event['image']) : '' }}"
                                      alt=""
-                                     class="w-24 h-24 rounded-full object-cover border border-gray-300"
+                                     class="w-24 h-24 rounded-full object-cover border"
                                      style="width: 150px; height: 150px;"
                                 >
                                 <button type="button" id="delete-image" class="{{ !isset($event['image']) ? 'hidden' : '' }} remove-bonus-pre absolute top-2 right-2 bg-red-600 hover:bg-red-700 text-white flex items-center justify-center w-8 h-8 rounded-full">
                                     X
                                 </button>
                             </div>
-                            <label for="image" class="bg-blast-600 hover:bg-blast-700 text-white font-semibold py-2 px-4 rounded cursor-pointer inline-block mt-4 text-center">
+                            <label for="image" class="bg-primary hover:bg-primary text-white font-semibold py-2 px-4 rounded cursor-pointer inline-block mt-4 text-center">
                                 {{ __('Choose File') }}
                             </label>
                             <input type="hidden" name="image_deleted" id="image_deleted" value="0" class="hidden">
@@ -91,11 +91,11 @@
                 </div>
 
                 <!-- Barra fissa con i pulsanti -->
-                <div class="fixed bottom-0 left-0 right-0 bg-gray-100 border-t border-gray-300 py-3 px-6 flex justify-end">
-                    <a href="{{ route('events.index') }}" class="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 px-4 rounded mr-2">
+                <div class="fixed z-50 bottom-0 left-0 right-0  py-3 px-6 flex justify-end">
+                    <a href="{{ route('events.index') }}" class="bg-dark border-primary border-2 text-primary font-semibold py-2 px-4 rounded mr-2">
                         {{ __('Cancel') }}
                     </a>
-                    <button type="submit" class="bg-blast-600 hover:bg-blast-700 text-white font-semibold py-2 px-4 rounded">
+                    <button type="submit" class="bg-primary hover:bg-primary text-white font-semibold py-2 px-4 rounded">
                         {{ isset($event) ? __('Update Event') : __('Create Event') }}
                     </button>
                 </div>
@@ -111,6 +111,8 @@
 
             tinymce.init({
                 selector: '.tinymce-editor',
+                skin: "oxide-dark",
+                content_css: "dark",
                 plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
                 toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
             });
@@ -123,10 +125,10 @@
                 }
                 tablinks = document.getElementsByTagName("a");
                 for (i = 0; i < tablinks.length; i++) {
-                    tablinks[i].classList.remove("text-blast-800", "border-b-2", "border-blast-800");
+                    tablinks[i].classList.remove("text-white", "border-b-2", "border-primary");
                 }
                 document.getElementById(tabName).style.display = "block";
-                evt.currentTarget.classList.add("text-blast-800", "border-b-2", "border-blast-800");
+                evt.currentTarget.classList.add("text-white", "border-b-2", "border-primary");
             }
 
             document.addEventListener('DOMContentLoaded', function() {
@@ -167,7 +169,7 @@
                     const rulePrefix = `${type === 0 ? 'bonus' : 'malus'}[${index}]`;
 
                     const li = document.createElement('li');
-                    li.className = "mb-4 p-4 border border-gray-300 rounded relative"; // Aggiungi `relative` per posizionamento assoluto
+                    li.className = "mb-4 p-4 rounded relative bg-dark"; // Aggiungi `relative` per posizionamento assoluto
 
                     li.innerHTML = `
             <div class="grid grid-cols-2 gap-4">
@@ -178,21 +180,21 @@
                     <input type="hidden" name="${rulePrefix}[_delete]" value="0" class="delete-flag">
 
                     <div class="mb-2">
-                        <label class="block text-gray-700">${ruleName} Name</label>
-                        <input type="text" name="${rulePrefix}[name]" class="border border-gray-300 rounded-md w-full" placeholder="Enter ${ruleName.toLowerCase()} name" value="${rule ? rule.name : ''}">
+                        <label class="block text-white">${ruleName} Name</label>
+                        <input type="text" name="${rulePrefix}[name]" class="border rounded-md w-full" placeholder="Enter ${ruleName.toLowerCase()} name" value="${rule ? rule.name : ''}">
                     </div>
 
                     <div class="mb-2">
-                        <label class="block text-gray-700">Value</label>
-                        <input type="number" name="${rulePrefix}[value]" class="border border-gray-300 rounded-md w-full" placeholder="Enter ${ruleName.toLowerCase()} value" value="${rule ? rule.value : ''}">
+                        <label class="block text-white">Value</label>
+                        <input type="number" name="${rulePrefix}[value]" class="border rounded-md w-full" placeholder="Enter ${ruleName.toLowerCase()} value" value="${rule ? rule.value : ''}">
                     </div>
                 </div>
 
                 <!-- Colonna destra -->
                 <div>
                     <div class="mb-2">
-                        <label class="block text-gray-700">Description</label>
-                        <textarea name="${rulePrefix}[description]" class="tinymce-editor-small border border-gray-300 rounded-md w-full">${rule ? rule.description : ''}</textarea>
+                        <label class="block text-white">Description</label>
+                        <textarea name="${rulePrefix}[description]" class="tinymce-editor-small border rounded-md w-full">${rule ? rule.description : ''}</textarea>
                     </div>
                 </div>
             </div>
@@ -213,7 +215,9 @@
                         toolbar: 'bold italic underline | bullist numlist',
                         menubar: false,
                         statusbar: false,
-                        height: 200
+                        height: 200,
+                        skin: "oxide-dark",
+                        content_css: "dark",
                     });
 
                     li.querySelector(`.${ruleTypeClass}`).addEventListener('click', function () {

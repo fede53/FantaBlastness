@@ -6,7 +6,7 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\TeamController;
-use App\Http\Controllers\ScoreController;
+use App\Http\Controllers\EventScoreController;
 use App\Http\Middleware\UserHaveATeam;
 use Illuminate\Support\Facades\Route;
 
@@ -23,8 +23,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('events', EventController::class);
     Route::resource('members', MemberController::class);
     Route::get('/events/{event}/team/create', [EventController::class, 'createTeam'])->name('events.team.create')->middleware(UserHaveATeam::class);
-    Route::get('/events/{event}/score', [ScoreController::class, 'create'])->name('score.create');
-    Route::post('/events/{event}/score', [ScoreController::class, 'store'])->name('score.store');
+    Route::get('/events/{event}/score', [EventScoreController::class, 'create'])->name('score.create');
+    Route::post('/events/{event}/score', [EventScoreController::class, 'store'])->name('score.store');
     Route::get('/teams/create', [TeamController::class, 'create'])->name('teams.create');
     Route::post('/teams', [TeamController::class, 'store'])->name('teams.store');
     Route::get('/teams/{team}', [TeamController::class, 'show'])->name('teams.show');

@@ -1,97 +1,221 @@
+@php
+    use Carbon\Carbon;
 
+    $isPhase2InFuture = !Carbon::parse($event['date_phase_2'])->lessThan(Carbon::now());
 
-            <!-- Titolo dell'evento e Countdown -->
-            <div class="flex justify-between items-center mb-8">
-                <h2 class="text-3xl font-semibold text-gray-800">{{ $event['name'] }}</h2>
+    // Definisci $topTeams come array vuoto di default
+    $topTeams = [];
 
-                <!-- Countdown per diverse fasi -->
-                @if (\Carbon\Carbon::parse($event['date_phase_1'])->greaterThanOrEqualTo(\Carbon\Carbon::now()) &&
-                        \Carbon\Carbon::parse($event['date_phase_2'])->isFuture())
-                    <div class="countdown text-gray-700 font-semibold" data-countdown="{{ $event['date_phase_1'] }}" data-msg="Ora puoi compilare i tuoi bonus e malus!">
-                        Potrai compilare i tuoi bonus e malus tra: <span></span>
-                    </div>
-                @elseif (\Carbon\Carbon::parse($event['date_phase_1'])->lessThan(\Carbon\Carbon::now()) &&
-                        \Carbon\Carbon::parse($event['date_phase_2'])->isFuture())
-                    <div class="countdown text-gray-700 font-semibold" data-countdown="{{ $event['date_phase_2'] }}" data-msg="Visualizza i risultati!">
-                        I risultati verranno pubblicati tra: <span></span>
-                    </div>
-                @endif
-            </div>
+    if (!$isPhase2InFuture) {
+        // Ordina le squadre in base al punteggio
+        $sortedTeams = $teams->sortByDesc('team_score');
+        $currentRank = 0;
+        $previousScore = null;
 
-            <!-- Navigazione a Tab -->
-            <div class="flex space-x-4 mb-10 border-b-2 border-gray-300 pb-2">
-                <button class="tab-button px-6 py-3 font-semibold text-xl text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition duration-300 active-tab" data-target="team-tab">
-                    La tua Squadra
-                </button>
-                <button class="tab-button px-6 py-3 font-semibold text-xl text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition duration-300" data-target="other-teams-tab">
-                    Altre Squadre
-                </button>
-
-            </div>
-
-            @if (\Carbon\Carbon::parse($event['date_phase_1'])->lessThan(\Carbon\Carbon::now()) && \Carbon\Carbon::parse($event['date_phase_2'])->isFuture())
-                <div class="flex justify-center">
-                    <a href="{{ route('score.create', $event['id']) }}" class="px-3 bg-blast-600 hover:bg-blast-700 text-white font-bold py-4 px-8 rounded-lg text-xl shadow-lg transition duration-300 ease-in-out">
-                        Inserisci bonus e malus
-                    </a>
-                </div>
-            @endif
-
-            <!-- Contenuto dei Tab -->
-            <div class="tab-content hidden" id="team-tab">
-                <!-- Include per la lista della tua squadra -->
-                @include('events.partials.teamlist', ['teams' => $teams->filter(fn($team) => $team['user']['id'] === auth()->user()->id)])
-            </div>
-
-            <div class="tab-content hidden" id="other-teams-tab">
-                <!-- Include per la lista delle altre squadre -->
-                @include('events.partials.teamlist', ['teams' => $teams->filter(fn($team) => $team['user']['id'] !== auth()->user()->id)])
-            </div>
-
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const tabButtons = document.querySelectorAll('.tab-button');
-            const tabContents = document.querySelectorAll('.tab-content');
-
-            // Aggiungi listener agli elementi dei pulsanti
-            tabButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    // Nascondi tutti i contenuti
-                    tabContents.forEach(content => content.classList.add('hidden'));
-
-                    // Rimuovi classi attive da tutti i pulsanti
-                    tabButtons.forEach(btn => {
-                        btn.classList.remove('bg-blue-700', 'active-tab');
-                        btn.classList.add('bg-blue-600');
-                    });
-
-                    // Mostra il contenuto del tab attivo
-                    const target = this.getAttribute('data-target');
-                    document.getElementById(target).classList.remove('hidden');
-
-                    // Cambia lo stato del pulsante cliccato
-                    this.classList.add('bg-blue-700', 'active-tab');
-                });
-            });
-
-            // Mostra il primo tab di default
-            if (tabButtons.length > 0) {
-                tabButtons[0].click();
+        // Prendi le prime 3 squadre, considerando eventuali ex aequo
+        foreach ($sortedTeams as $team) {
+            if ($previousScore === null || $previousScore !== $team['team_score']) {
+                $currentRank++;
             }
+            if ($currentRank > 3) {
+                break;
+            }
+            if (!isset($topTeams[$currentRank])) {
+                $topTeams[$currentRank] = [];
+            }
+            $topTeams[$currentRank][] = $team;
+            $previousScore = $team['team_score'];
+        }
+    }
+@endphp
+
+    <!-- Titolo dell'evento e Countdown -->
+<div class="flex justify-between items-center mb-8">
+    <h2 class="text-3xl font-semibold text-white">{{ $event['name'] }}</h2>
+</div>
+
+@if (!empty($topTeams))
+    <!-- Podio dei Vincitori -->
+    <div class="podium-container mb-8">
+        <div class="podium">
+            @foreach ($topTeams as $rank => $teamsAtRank)
+                <div class="podium-block {{ $rank == 1 ? 'first' : ($rank == 2 ? 'second' : 'third') }}">
+                    <div class="rank">{{ $rank }}</div>
+                    @foreach ($teamsAtRank as $team)
+                        <div class="team-info">
+                            <div class="team-name">{{ $team['name'] }}</div>
+                            <div class="user-name">{{ $team['user']['name'] }} {{ $team['user']['surname'] }}</div>
+                            <div class="score">(Punteggio: {{ $team['team_score'] }})</div>
+                        </div>
+                    @endforeach
+                </div>
+            @endforeach
+        </div>
+    </div>
+@endif
+
+
+<!-- Countdown per diverse fasi -->
+@if (Carbon::parse($event['date_phase_1'])->greaterThanOrEqualTo(Carbon::now()) &&
+            Carbon::parse($event['date_phase_2'])->isFuture() && !$event['eventScoreCheck'])
+    <div class="countdown text-white font-semibold" data-countdown="{{ $event['date_phase_1'] }}" data-msg="Ora puoi compilare i tuoi bonus e malus!">
+        Potrai compilare i tuoi bonus e malus tra: <span></span>
+    </div>
+@elseif (Carbon::parse($event['date_phase_1'])->lessThan(Carbon::now()) &&
+        Carbon::parse($event['date_phase_2'])->isFuture())
+    <div class="countdown text-white font-semibold" data-countdown="{{ $event['date_phase_2'] }}" data-msg="Visualizza i risultati!">
+        I risultati verranno pubblicati tra: <span></span>
+    </div>
+@endif
+
+@if (Carbon::parse($event['date_phase_1'])->lessThan(Carbon::now()) && Carbon::parse($event['date_phase_2'])->isFuture() && !$event['eventScoreCheck'])
+    <div class="flex">
+        <a href="{{ route('score.create', $event['id']) }}" class="px-3 bg-primary hover:bg-primary text-white font-bold py-4 px-8 rounded-lg text-xl shadow-lg transition duration-300 ease-in-out">
+            Compila i tuoi bonus e malus
+        </a>
+    </div>
+@endif
+
+<!-- Navigazione a Tab -->
+<div class="flex space-x-4 mb-10-2 pt-10 !mb-6">
+    <button class="tab-button px-6 py-3 font-semibold text-xl text-white bg-dark border-b-2 transition duration-300 active-tab" data-target="classifica-tab">
+        Classifica {{ !$isPhase2InFuture ? 'Finale' : 'Parziale' }}
+    </button>
+    <button class="tab-button px-6 py-3 font-semibold text-xl text-white bg-dark border-b-2 transition duration-300" data-target="team-tab">
+        La mia Squadra
+    </button>
+
+    @if ($isPhase2InFuture)
+        <button class="tab-button px-6 py-3 font-semibold text-xl text-white bg-dark border-b-2 transition duration-300" data-target="other-teams-tab">
+            Altre Squadre
+        </button>
+    @endif
+
+    @if (!$isPhase2InFuture)
+        <button class="tab-button px-6 py-3 font-semibold text-xl text-white bg-dark border-b-2 transition duration-300" data-target="score-tab">
+            Punteggi
+        </button>
+    @endif
+
+
+</div>
+
+<div class="tab-content" id="classifica-tab">
+    @include('events.partials.classifica', ['teams' => $teams, 'isPhase2InFuture' => $isPhase2InFuture])
+</div>
+<div class="tab-content hidden" id="team-tab">
+    @include('events.partials.teamlist', ['teams' => $teams->filter(fn($team) => $team['user']['id'] === auth()->user()->id), 'isPhase2InFuture' => $isPhase2InFuture])
+</div>
+@if ($isPhase2InFuture)
+    <div class="tab-content hidden" id="other-teams-tab">
+        @include('events.partials.teamlist', ['teams' => $teams->filter(fn($team) => $team['user']['id'] !== auth()->user()->id), 'isPhase2InFuture' => $isPhase2InFuture])
+    </div>
+@endif
+@if (!$isPhase2InFuture)
+    <div class="tab-content hidden" id="score-tab">
+        @include('events.partials.score', ['teams' => $teams->filter(fn($team) => $team['user']['id'] !== auth()->user()->id), 'isPhase2InFuture' => $isPhase2InFuture])
+    </div>
+@endif
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const tabButtons = document.querySelectorAll('.tab-button');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                tabContents.forEach(content => content.classList.add('hidden'));
+                tabButtons.forEach(btn => {
+                    btn.classList.remove('bg-primary', 'active-tab');
+                });
+
+                const target = this.getAttribute('data-target');
+                document.getElementById(target).classList.remove('hidden');
+
+                this.classList.add('bg-primary', 'active-tab');
+            });
         });
-    </script>
 
-    <style>
-        .tab-button {
-            margin-right: 8px; /* Extra spacing between buttons */
+        if (tabButtons.length > 0) {
+            tabButtons[0].click();
         }
+    });
+</script>
 
-        .tab-button.active-tab {
+<style>
+    .podium-container {
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        margin-top: 50px;
+    }
 
+    .podium {
+        display: flex;
+        gap: 10px;
+        align-items: flex-end;
+    }
+
+    .podium-block {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-end;
+        width: 120px;
+        border-radius: 10px;
+        color: #fff;
+        text-align: center;
+        padding: 10px;
+    }
+
+    .podium-block .rank {
+        font-size: 2rem;
+        font-weight: bold;
+    }
+
+    .podium-block.first {
+        background-color: gold;
+        height: 200px;
+    }
+
+    .podium-block.second {
+        background-color: silver;
+        height: 150px;
+    }
+
+    .podium-block.third {
+        background-color: #cd7f32;
+        height: 100px;
+    }
+
+    .team-name, .user-name, .score {
+        margin-top: 5px;
+        font-size: 1.2rem;
+    }
+
+    .podium-block {
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .podium-block.first {
+        animation: bounce 1s ease-in-out infinite alternate;
+    }
+
+    @keyframes bounce {
+        0% {
+            transform: translateY(0);
         }
-
-        .tab-content {
-            padding-top: 1rem; /* Add some space between tabs and content */
+        100% {
+            transform: translateY(-10px);
         }
-    </style>
+    }
+
+    .tab-button {
+        margin-right: 8px;
+    }
+
+    .tab-content {
+        padding-top: 1rem;
+    }
+</style>
