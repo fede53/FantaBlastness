@@ -19,7 +19,7 @@
             </div>
 
             <!-- Settings Dropdown -->
-            <div class="hidden sm:flex sm:items-center sm:ms-6">
+            <div class="sm:flex sm:items-center sm:ms-6">
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button class="inline-flex items-center px-3 py-2 ransparent text-sm leading-4 font-medium rounded-md text-white bg-dark-100 hover:text-white focus:outline-none transition ease-in-out duration-150">

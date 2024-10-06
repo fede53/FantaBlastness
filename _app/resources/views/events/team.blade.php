@@ -26,7 +26,7 @@
                     @csrf
                     <input type="hidden" name="event_id" value="{{ $event['id'] }}">
 
-                    
+
 
                     <div class="flex justify-between gap-6 relative">
 
@@ -45,7 +45,7 @@
 
                                 <div class="members_filters w-full flex flex-end">
                                     <div class="members_filters__text font-semibold">Filtra per delfini:</div>
-                                    
+
                                     <input type="range" id="costRange" min="0" max="{{ $maxCost }}" value="{{ $maxCost }}" step="1" class="w-1/2">
                                     <span id="costRangeValue" class="text-white ml-2">{{ $maxCost }}</span>
                                 </div>
@@ -116,7 +116,7 @@
             pointer-events: none;
             width: fit-content;
             height: fit-content;
-            
+
         }
 
         canvas#memberRadarChart {
@@ -200,7 +200,7 @@
                                 min: 0,
                                 max: 10,
                                 ticks: {
-                                    stepSize: 1,
+                                    stepSize: 2,
                                     display: false
                                 },
                                 grid: {
@@ -226,7 +226,7 @@
                     }
                 });
 
-            
+
                 // Seleziona il range e il valore mostrato
                 const costRange = document.getElementById('costRange');
                 const costRangeValue = document.getElementById('costRangeValue');
@@ -254,7 +254,7 @@
 
                 // Inizializza la visualizzazione con il valore massimo predefinito
                 filterMembersByCost(costRange.value);
-                
+
 
 
                 // Tooltip Radar Chart for individual characteristics
@@ -279,7 +279,7 @@
                                 min: 0,
                                 max: 10,
                                 ticks: {
-                                    stepSize: 1
+                                    stepSize: 2
                                 }
                             }
                         },

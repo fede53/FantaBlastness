@@ -49,7 +49,12 @@ class Event extends Model
             'can_partecipate' => Carbon::parse($this->date_for_partecipate)->greaterThanOrEqualTo(Carbon::now()),
             'date_phase_1' => $this->date_phase_1,
             'date_phase_2' => $this->date_phase_2,
-            'members' => $this->members->map->formatWithPivot()->keyBy('id'),
+            'members' => $this->members
+                ->filter(function($member) {
+                    return $member->pivot->active == 1 && $member->id != Auth::id();
+                })
+                ->map->formatWithPivot()
+                ->keyBy('id'),
             'rules' => $this->rules->map->format(),
         ];
     }
