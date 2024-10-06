@@ -53,8 +53,8 @@
                                     Scopri il vincitore
                                 </a>
                             @else
-                                <a href="{{ route('events.show', $event['id']) }}" class="inline-block bg-primary text-white font-semibold py-2 px-4 rounded">
-                                    Dettagli evento
+                                <a href="{{ route('events.show', $event['id']) }}" class="button-partecipate inline-block bg-primary text-white font-semibold py-2 px-4 rounded">
+                                    Scopri l'evento e partecipa
                                 </a>
 
                                 @if (\Carbon\Carbon::parse($event['date_phase_1'])->lessThan(\Carbon\Carbon::now()) && \Carbon\Carbon::parse($event['date_phase_2'])->isFuture() && !$event['eventScoreCheck'])

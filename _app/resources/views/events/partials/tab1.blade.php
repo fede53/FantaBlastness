@@ -29,7 +29,7 @@
         @enderror
     </div>
     <div class="mb-4">
-        <label for="instructions" class="block text-white font-semibold">{{ __('Regulation') }}</label>
+        <label for="instructions" class="block text-white font-semibold">{{ __('Instructions') }}</label>
         <textarea id="instructions" name="instructions" class="tinymce-editor mt-1 block w-full rounded-md shadow-sm">{{ old('instructions', $event['instructions'] ?? '') }}</textarea>
         @error('instructions')
         <p class="text-red-500 text-sm mt-1">{{ $message }}</p>

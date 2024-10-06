@@ -16,7 +16,7 @@
                 <!-- Contatore totale Bonus e Malus -->
                 <div class="bg-dark-100 p-6 !mt-0 rounded-lg shadow-md mb-6 sticky !top-0 flex justify-between items-center">
                     <h3 class="text-2xl font-semibold text-white">Totale Bonus/Malus: <span id="totalValue">0</span></h3>
-                    <button type="submit" class="bg-primary font-semibold text-white px-4 py-2 rounded-md hover:bg-primary transition">Invia</button>
+                    <button type="submit" class="button-send bg-primary font-semibold text-white px-4 py-2 rounded-md hover:bg-primary transition">Invia</button>
                 </div>
 
                 <!-- Sezione Bonus e Malus -->

@@ -22,7 +22,12 @@
 .font-sans {
     font-family: 'Nunito Sans', sans-serif;
 }
-
+body {
+    background: #15181d;
+}
+.hamburger {
+    display: none;
+}
 [type='text']:focus, input:where(:not([type])):focus, [type='email']:focus, [type='url']:focus, [type='password']:focus, [type='number']:focus, [type='date']:focus, [type='datetime-local']:focus, [type='month']:focus, [type='search']:focus, [type='tel']:focus, [type='time']:focus, [type='week']:focus, [multiple]:focus, textarea:focus, select:focus {
     outline: 2px solid transparent;
     outline-offset: 2px;
@@ -355,4 +360,138 @@ input[type="range"]::-webkit-slider-thumb {
 }
 .rule.checked {
     border-color: var(--primary);
+}
+
+
+@media screen and (max-width: 1024px) {
+    .cnt-login {
+        min-width: unset;
+    }
+    .w-3\/5 {
+        width: 100%;
+    }
+    .max-w-7xl {
+        width: 90%;
+        padding: 0;
+        margin: auto;
+    }
+    .button-partecipate {
+        margin-bottom: 10px;
+    }
+    .hamburger {
+        display: block;
+    }
+    .name-user {
+        display: none;
+    }
+    .hamburger svg {
+        height: 30px;
+        fill: #fff;
+    }
+    .arrow-down {
+        display: none;
+    }
+    .grid-cols-2 {
+        grid-template-columns: 1fr;
+    }
+    .rule {
+        padding-top: 50px;
+    }
+    .member-box {
+        display: flex;
+        padding: 0;
+        width: 100%;
+        flex-wrap: wrap;
+        align-items: center;
+        border: 2px solid transparent;
+    }
+    .min-890 {
+        min-width: 300px;
+        width: 100%;
+    }
+    .team-cnt {
+        flex-wrap: wrap;
+        flex-direction: column-reverse;
+
+        .w-3\/12 {
+            width: 100%;
+            background: #15181d;
+            top: 0;
+            padding-top: 10px;
+        }
+        .budget-ctn {
+            width: 100%;
+            
+        }
+        canvas {
+            display: none !important;
+        }
+    }
+    #tooltip-container{
+        display: none !important;
+    }
+    .tab-list {
+        overflow-x: scroll;
+        flex-wrap: nowrap !important;
+    }
+    .myteam-cnt {
+        flex-wrap: wrap;
+        .w-3\/12 {
+            width: 100%;
+        }
+        .w-3\/4 {
+            width: 100%;
+        }
+        canvas {
+            margin: 0 !important;
+            height: 300px !important;
+        }
+        .col-span-7 {
+            grid-column: unset;
+        }
+        .grid-cols-7 {
+            grid-template-columns: 1fr;
+        }
+        .name-myteam,
+        .cost-myteam {
+            width: 100%;
+        }
+    }
+    .flex {
+        flex-wrap: wrap;
+    }
+    .header {
+        flex-wrap: nowrap !important;
+    }
+    .w-3\/4 {
+        width: 100%;
+    }
+    .w-3\/12 {
+        width: 100%;
+    }
+    .profile-picture {
+        align-items: flex-start;
+        margin: 20px 0;
+        padding: 0;
+    }
+    .name-page {
+        padding: 20px 0;
+    }
+    .w-9\/12 {
+        width: 100%;
+    }
+    .button-action {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: #15181d;
+        margin: 5px 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .button-send {
+        width: 100%;
+        margin-top: 10px;
+    }
 }

@@ -64,7 +64,7 @@
             </div>
         </div>
 
-        <div class="w-3/12 p-4 pt-0 sm:pr-8 sm:pb-8 sm:pl-8 flex flex-col items-center">
+        <div class="w-3/12 p-4 pt-0 sm:pr-8 sm:pb-8 sm:pl-8 flex flex-col items-center profile-picture">
             <label for="image" class="block text-white font-semibold text-center">{{ __('Profile Picture') }}</label>
             <div class="mt-4 relative flex justify-center">
                 <img id="image-preview" src="{{ isset($user) && $user['image'] ? asset('storage/' . $user['image']) : '' }}"

@@ -77,7 +77,7 @@
 @endif
 
 <!-- Navigazione a Tab -->
-<div class="flex space-x-4 mb-10-2 pt-10 !mb-6">
+<div class="flex space-x-4 mb-10-2 pt-10 !mb-6 tab-list">
     <button class="tab-button px-6 py-3 font-semibold text-xl text-white bg-dark border-b-2 transition duration-300 active-tab" data-target="classifica-tab">
         Classifica {{ !$isPhase2InFuture ? 'Finale' : 'Parziale' }}
     </button>

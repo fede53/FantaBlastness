@@ -46,7 +46,7 @@
 <!-- Accordion for Regulation -->
 <div class="bg-dark-100 shadow-lg rounded-lg overflow-hidden mt-6">
     <button onclick="toggleAccordion()" class="w-full text-left p-4 text-lg font-semibold text-white bg-dark-100 border-b-2 border-primary dark:bg-dark hover:bg-dark-100">
-        Regolamento
+        Clicca qui per leggere il <strong>regolamento</strong>
         <span id="accordion-icon" class="float-right transition-transform duration-300">
                         ▼
                     </span>

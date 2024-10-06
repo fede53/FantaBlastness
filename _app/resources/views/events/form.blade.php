@@ -32,7 +32,7 @@
 
                         <!-- Tab Buttons -->
                         <div class="mb-4">
-                            <ul class="flex">
+                            <ul class="flex tab-list">
                                 <li class="mr-1">
                                     <a href="#tab1" class="bg-dark-100 inline-block py-2 px-4 text-white hover:text-white font-semibold text-white-2 border-primary border-b-2" onclick="openTab(event, 'tab1')">General</a>
                                 </li>
@@ -40,7 +40,7 @@
                                     <a href="#tab2" class="bg-dark-100 inline-block py-2 px-4 text-white hover:text-white font-semibold" onclick="openTab(event, 'tab2')">Phases</a>
                                 </li>
                                 <li>
-                                    <a href="#tab3" class="bg-dark-100 inline-block py-2 px-4 text-white hover:text-white font-semibold" onclick="openTab(event, 'tab3')">Team Members</a>
+                                    <a href="#tab3" class="bg-dark-100 inline-block py-2 px-4 text-white hover:text-white font-semibold" onclick="openTab(event, 'tab3')">Members</a>
                                 </li>
                                 <li>
                                     <a href="#tab4" class="bg-dark-100 inline-block py-2 px-4 text-white hover:text-white font-semibold" onclick="openTab(event, 'tab4')">Bonus</a>
@@ -215,9 +215,7 @@
             <!-- Pulsante con icona di cestino -->
             <button type="button" class="${ruleTypeClass} absolute bottom-2 right-2 ${removeButtonClass}">
                 <!-- Icona cestino -->
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 18M6 6H18M7 6V18M17 6V18M9 6L15 6" />
-                </svg>
+                <svg style="fill: red; height: 17px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Pro 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2024 Fonticons, Inc.--><path d="M164.2 39.5L148.9 64l150.3 0L283.8 39.5c-2.9-4.7-8.1-7.5-13.6-7.5l-92.5 0c-5.5 0-10.6 2.8-13.6 7.5zM311 22.6L336.9 64 384 64l32 0 16 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-16 0 0 336c0 44.2-35.8 80-80 80l-224 0c-44.2 0-80-35.8-80-80L32 96 16 96C7.2 96 0 88.8 0 80s7.2-16 16-16l16 0 32 0 47.1 0L137 22.6C145.8 8.5 161.2 0 177.7 0l92.5 0c16.6 0 31.9 8.5 40.7 22.6zM64 96l0 336c0 26.5 21.5 48 48 48l224 0c26.5 0 48-21.5 48-48l0-336L64 96zm80 80l0 224c0 8.8-7.2 16-16 16s-16-7.2-16-16l0-224c0-8.8 7.2-16 16-16s16 7.2 16 16zm96 0l0 224c0 8.8-7.2 16-16 16s-16-7.2-16-16l0-224c0-8.8 7.2-16 16-16s16 7.2 16 16zm96 0l0 224c0 8.8-7.2 16-16 16s-16-7.2-16-16l0-224c0-8.8 7.2-16 16-16s16 7.2 16 16z"/></svg>
             </button>
         `;
 

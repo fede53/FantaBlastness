@@ -3,7 +3,7 @@
     @php
         $totalCost = $team['members']->sum('cost');
     @endphp
-    <div class="flex bg-dark-100 shadow-lg rounded-lg overflow-hidden p-6 mb-6 items-start">
+    <div class="flex bg-dark-100 shadow-lg rounded-lg overflow-hidden p-6 mb-6 items-start myteam-cnt">
         <!-- Colonna sinistra: Grafico delle caratteristiche della squadra -->
         <div class="w-3/12">
             <canvas id="teamRadarChart-{{ $team['id'] }}" width="300" height="300"></canvas>
@@ -13,8 +13,8 @@
         <!-- Colonna destra: Dettagli della squadra -->
         <div class="w-3/4 pl-6">
             <div class="flex justify-between items-center mb-4">
-                <h3 class="text-2xl font-semibold text-white">{{ $team['name'] }} - <span class="text-lg text-primary">{{ $team['user']['name'] }} {{ $team['user']['surname'] }}</span></h3>
-                <p class="text-xl font-semibold text-white">Total Cost: {{ $totalCost }}</p>
+                <h3 class="text-2xl font-semibold text-white name-myteam">{{ $team['name'] }} - <span class="text-lg text-primary">{{ $team['user']['name'] }} {{ $team['user']['surname'] }}</span></h3>
+                <p class="text-xl font-semibold text-white cost-myteam">Total Cost: {{ $totalCost }}</p>
             </div>
 
             <!-- Griglia membri della tua squadra -->
