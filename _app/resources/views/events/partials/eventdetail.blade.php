@@ -65,7 +65,7 @@
             <div class="rule bg-dark p-4 rounded-lg shadow-md mb-4 text-green-600">
             <div class="bullet {{ $rule['characteristic'] }}"><div class="bullet_text">{{ $rule['characteristic'] }}</div></div>
                 <h4 class="text-xl font-bold text-green-600">{{ $rule['name'] }}</h4>
-                <p class="text-green-600">{!! $rule['description'] !!}</p>
+                <div class="text-white">{!! $rule['description'] !!}</div>
                 <p class="text-green-500 font-semibold text-lg">+{{ $rule['value'] }}</p>
             </div>
         @endforeach
@@ -78,7 +78,7 @@
             <div class="rule bg-dark p-4 rounded-lg shadow-md mb-4 text-red-600">
             <div class="bullet {{ $rule['characteristic'] }}"><div class="bullet_text">{{ $rule['characteristic'] }}</div></div>
                 <h4 class="text-xl font-bold text-red-600 ">{{ $rule['name'] }}</h4>
-                <p class="text-red-600">{!! $rule['description'] !!}</p>
+                <div class="text-white">{!! $rule['description'] !!}</div>
                 <p class="text-red-500 font-semibold text-lg">-{{ $rule['value'] }}</p>
             </div>
         @endforeach

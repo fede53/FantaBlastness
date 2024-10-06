@@ -18,14 +18,14 @@
     <body class="font-sans text-white antialiased text-white">
         <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-dark dark:bg-dark">
             <div class="bg-video">
-                
-                <video autoplay loop>
-                    <source src="/assets/images/video11.mp4" type="video/mp4" autoplay loop>
+
+                <video autoplay loop muted>
+                    <source src="/assets/images/video11.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
             </div>
             <main>
-                
+
 
                 <div class="cnt-login w-full sm:max-w-md mt-6 px-6 py-4 bg-dark-100 shadow-md overflow-hidden sm:rounded-lg">
                     <div class="logo-login">

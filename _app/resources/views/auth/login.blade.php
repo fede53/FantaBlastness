@@ -54,4 +54,5 @@
             </x-primary-button>
         </div>
     </form>
+
 </x-guest-layout>
