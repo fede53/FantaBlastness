@@ -78,6 +78,7 @@ class EventController extends Controller
     {
         try {
             $event = Event::findOrFail($id)->format();
+
             return view('events.form', [
                 'event' => $event,
                 'members' => Member::orderBy("name")->get()->map->format()
@@ -146,7 +147,7 @@ class EventController extends Controller
     public function createTeam(string $id)
     {
         try {
-            $event = Event::findOrFail($id)->format();
+            $event = Event::findOrFail($id)->formatCreateTeam();
             $maxCost = $event['members']->max('cost');
 
             return view('events.team', [

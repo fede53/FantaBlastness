@@ -49,9 +49,37 @@ class Event extends Model
             'can_partecipate' => Carbon::parse($this->date_for_partecipate)->greaterThanOrEqualTo(Carbon::now()),
             'date_phase_1' => $this->date_phase_1,
             'date_phase_2' => $this->date_phase_2,
+            'members' => $this->members->map->formatWithPivot()->keyBy('id'),
+            'rules' => $this->rules->map->format(),
+        ];
+    }
+
+    public function formatCreateTeam(): array
+    {
+
+        $myMember = Member::where('email', Auth::user()->email)->first();
+        if($myMember!=null){
+            $myMember = $myMember->format();
+            $myMember = $myMember['id'];
+        }
+
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'description' => $this->description,
+            'characteristic' => $this->characteristic,
+            'regulation' => $this->regulation,
+            'instructions' => $this->instructions,
+            'dolphins' => $this->dolphins,
+            'image' => $this->image!=null ? 'events/' . $this->image : null,
+            'thumbnail' => $this->image!=null ? 'events/thumbnails/' . $this->image : null,
+            'date_for_partecipate' => $this->date_for_partecipate,
+            'can_partecipate' => Carbon::parse($this->date_for_partecipate)->greaterThanOrEqualTo(Carbon::now()),
+            'date_phase_1' => $this->date_phase_1,
+            'date_phase_2' => $this->date_phase_2,
             'members' => $this->members
-                ->filter(function($member) {
-                    return $member->pivot->active == 1 && $member->id != Auth::id();
+                ->filter(function($member) use ($myMember){
+                    return $member->pivot->active == 1 && $member->id != $myMember;
                 })
                 ->map->formatWithPivot()
                 ->keyBy('id'),
