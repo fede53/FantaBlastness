@@ -43,9 +43,9 @@
                     <div class="rank">{{ $rank }}</div>
                     @foreach ($teamsAtRank as $team)
                         <div class="team-info">
-                            <div class="team-name">{{ $team['name'] }}</div>
-                            <div class="user-name">{{ $team['user']['name'] }} {{ $team['user']['surname'] }}</div>
-                            <div class="score">(Punteggio: {{ $team['team_score'] }})</div>
+                            <div class="team-name font-semibold">{{ $team['name'] }}</div>
+                            <div class="user-name text-xs">{{ $team['user']['name'] }} {{ $team['user']['surname'] }}</div>
+                            <div class="score font-bold">{{ $team['team_score'] }}</div>
                         </div>
                     @endforeach
                 </div>
@@ -59,12 +59,12 @@
 @if (Carbon::parse($event['date_phase_1'])->greaterThanOrEqualTo(Carbon::now()) &&
             Carbon::parse($event['date_phase_2'])->isFuture() && !$event['eventScoreCheck'])
     <div class="countdown text-white font-semibold" data-countdown="{{ $event['date_phase_1'] }}" data-msg="Ora puoi compilare i tuoi bonus e malus!">
-        Potrai compilare i tuoi bonus e malus tra: <span></span>
+        Potrai compilare i tuoi bonus e malus tra: <span class="text-primary text-xl"></span>
     </div>
 @elseif (Carbon::parse($event['date_phase_1'])->lessThan(Carbon::now()) &&
         Carbon::parse($event['date_phase_2'])->isFuture())
     <div class="countdown text-white font-semibold" data-countdown="{{ $event['date_phase_2'] }}" data-msg="Visualizza i risultati!">
-        I risultati verranno pubblicati tra: <span></span>
+        I risultati verranno pubblicati tra: <span class="text-primary text-xl"></span>
     </div>
 @endif
 
@@ -175,24 +175,21 @@
     }
 
     .podium-block.first {
-        background-color: gold;
-        height: 200px;
+        background-color: #bda106;
+        height: 230px;
     }
 
     .podium-block.second {
         background-color: silver;
-        height: 150px;
+        height: 180px;
     }
 
     .podium-block.third {
         background-color: #cd7f32;
-        height: 100px;
+        height: 130px;
     }
 
-    .team-name, .user-name, .score {
-        margin-top: 5px;
-        font-size: 1.2rem;
-    }
+    
 
     .podium-block {
         box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);

@@ -39,10 +39,19 @@
                             @enderror
                         </div>
 
+                        <!-- Email -->
+                        <div class="mb-4">
+                            <label for="email" class="block text-white font-semibold">{{ __('email') }}</label>
+                            <input type="text" name="email" id="email" class="mt-1 block w-full rounded-md shadow-sm" value="{{ old('email', $member['email'] ?? '') }}" required>
+                            @error('email')
+                            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
+                        </div>
+
                         <!-- Fantaname -->
                         <div class="mb-4">
                             <label for="fantaname" class="block text-white font-semibold">{{ __('Fantaname') }}</label>
-                            <input type="text" name="fantaname" id="fantaname" class="mt-1 block w-full rounded-md shadow-sm" value="{{ old('fantaname', $member['fantaname'] ?? '') }}" required>
+                            <input type="text" name="fantaname" id="fantaname" class="mt-1 block w-full rounded-md shadow-sm" value="{{ old('fantaname', $member['fantaname'] ?? '') }}">
                             @error('fantaname')
                             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                             @enderror

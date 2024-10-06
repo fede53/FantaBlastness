@@ -1,6 +1,6 @@
-<div class="overflow-x-auto relative shadow-md sm:rounded-lg bg-dark-100">
-    <table class="w-full text-sm text-left text-white">
-        <thead class="text-xs uppercase text-white">
+<div class="overflow-x-auto border border-dark-100 relative shadow-md sm:rounded-lg bg-dark-100">
+    <table class="w-full text-sm text-left text-white border-dark-100">
+        <thead class="text-xs uppercase text-white bg-dark-100 border-b-2 border-primary">
         <tr>
             <th scope="col" class="py-3 px-6 text-center">
                 Posizione
@@ -30,7 +30,7 @@
             $position = 1;
         @endphp
         @foreach ($sortedTeams as $team)
-            <tr class="bg-dark border-b">
+            <tr class="bg-dark-100  border-b border-dark-100">
                 <td class="py-4 px-6 text-primary text-center">
                     {{ $position++ }}
                 </td>
@@ -41,11 +41,11 @@
                     {{ $team['user']['name'] }} {{ $team['user']['surname'] }}
                 </td>
                 @if (!$isPhase2InFuture)
-                    <td class="py-4 px-6 font-semibold bg-primary text-white text-center">
+                    <td class="py-4 px-6 font-semibold text-white text-center bg-dark">
                         {{ $team['extra_team_score'] ?? 0 }}
                     </td>
                 @endif
-                <td class="py-4 px-6 font-semibold bg-primary text-white text-center">
+                <td class="py-4 px-6 font-semibold text-white text-center bg-dark">
                     {{ $team['final_team_score'] ?? 0 }}
                 </td>
             </tr>

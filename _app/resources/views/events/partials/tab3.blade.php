@@ -1,8 +1,8 @@
 <!-- Tab 3: Participants -->
 <div id="tab3" class="tab-content hidden">
-    <div class="overflow-x-auto relative shadow-md sm:rounded-lg">
+    <div class="overflow-x-auto relative shadow-md sm:rounded-lg border border-dark-100">
         <table class="w-full text-sm text-left text-white">
-            <thead class="text-xs uppercase bg-primary text-white">
+            <thead class="text-xs uppercase bg-dark border-b-2 border-primary text-white">
             <tr>
                 <th scope="col" class="py-3 px-6 w-4/12">Partecipante</th>
                 <th scope="col" class="py-3 px-6 w-1/12">Attivo</th>
@@ -18,7 +18,7 @@
                                  ? $event['members'][$member['id']]
                                  : null;
                 @endphp
-                <tr class="bg-dark border-b">
+                <tr class="bg-dark border-b border-dark">
                     <!-- Partecipante -->
                     <td class="py-4 px-6 flex items-center">
                         <img src="{{ asset('storage/' . $member['thumbnail']) }}" alt="{{ $member['name'] }}" class="w-12 h-12 rounded-full object-cover mr-4">

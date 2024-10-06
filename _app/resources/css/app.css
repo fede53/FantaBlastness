@@ -57,7 +57,15 @@
 .border-primary {
     border-color: var(--primary);
 }
-
+.border-dark {
+    border-color: #15181d;
+}
+.border-dark-100 {
+    border-color: #0c1015;   
+}
+.bg-primary-transparent {
+    background: #e0338a4f;
+}
 .bg-dark {
     background: #15181d;
 }
@@ -72,6 +80,7 @@
     position: sticky;
     height: fit-content;
     top: 20px;
+    z-index: 100;
 }
 .member-box {
     display: flex;
@@ -241,7 +250,7 @@ main {
 }
 
 .photo-full {
-    aspect-ratio: 1.94;
+    aspect-ratio: 2.29;
     height: fit-content;
     overflow: hidden;
 }
@@ -334,4 +343,16 @@ input[type="range"]::-webkit-slider-thumb {
 }
 .text-white {
     color: #ddd;
+}
+.check-rule {
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    opacity: 0;
+}
+.rule.checked {
+    border-color: var(--primary);
 }

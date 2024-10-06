@@ -9,7 +9,7 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-            <h2 class="text-2xl font-semibold text-white mb-6">Upcoming Events</h2>
+            <h2 class="text-2xl font-semibold text-white mb-6">Tutti gli eventi</h2>
 
             <!-- Lista degli eventi -->
             <div class="flex flex-wrap space-y-6"> <!-- Flex container per centrare le card -->
@@ -29,24 +29,23 @@
                                 </p>
                             </div>
 
-                            @if (Carbon::parse($event['date_phase_1'])->greaterThanOrEqualTo(Carbon::now()) &&
+                            @if ($event['can_partecipate'] && !$event['haveATeam'])
+                                <div class="countdown text-white font-semibold my-4" data-countdown="{{ $event['date_for_partecipate'] }}" data-msg="Evento iniziato">
+                                    Partecipa entro: <span class="text-primary text-xl"></span>
+                                </div>
+                            @elseif (Carbon::parse($event['date_phase_1'])->greaterThanOrEqualTo(Carbon::now()) &&
                                     Carbon::parse($event['date_phase_2'])->isFuture() && !$event['eventScoreCheck'])
                                 <div class="countdown text-white font-semibold my-4" data-countdown="{{ $event['date_phase_1'] }}" data-msg="Ora puoi compilare i tuoi bonus e malus!">
-                                    Potrai compilare i tuoi bonus e malus tra: <span></span>
+                                    Potrai compilare i tuoi bonus e malus tra: <span class="text-primary text-xl"></span>
                                 </div>
                             @elseif (Carbon::parse($event['date_phase_1'])->lessThan(Carbon::now()) &&
                                     Carbon::parse($event['date_phase_2'])->isFuture())
                                 <div class="countdown text-white font-semibold my-4" data-countdown="{{ $event['date_phase_2'] }}" data-msg="Visualizza i risultati!">
-                                    I risultati verranno pubblicati tra: <span></span>
+                                    I risultati verranno pubblicati tra: <span class="text-primary text-xl"></span>
                                 </div>
                             @endif
 
-                            @if ($event['can_partecipate'] && !$event['haveATeam'])
-                                <div class="countdown text-white font-semibold my-4" data-countdown="{{ $event['date_for_partecipate'] }}" data-msg="Evento iniziato">
-                                    Partecipa entro: <span></span>
-                                </div>
-                            @endif
-
+                            
 
 
                             @if (\Carbon\Carbon::parse($event['date_phase_2'])->lessThan(\Carbon\Carbon::now()))
@@ -55,7 +54,7 @@
                                 </a>
                             @else
                                 <a href="{{ route('events.show', $event['id']) }}" class="inline-block bg-primary text-white font-semibold py-2 px-4 rounded">
-                                    Show Event
+                                    Dettagli evento
                                 </a>
 
                                 @if (\Carbon\Carbon::parse($event['date_phase_1'])->lessThan(\Carbon\Carbon::now()) && \Carbon\Carbon::parse($event['date_phase_2'])->isFuture() && !$event['eventScoreCheck'])

@@ -181,12 +181,25 @@
 
                     <div class="mb-2">
                         <label class="block text-white">${ruleName} Name</label>
-                        <input type="text" name="${rulePrefix}[name]" class="border rounded-md w-full" placeholder="Enter ${ruleName.toLowerCase()} name" value="${rule ? rule.name : ''}">
+                        <input type="text" name="${rulePrefix}[name]" class="border rounded-md w-full bg-dark-100" placeholder="Enter ${ruleName.toLowerCase()} name" value="${rule ? rule.name : ''}">
                     </div>
 
                     <div class="mb-2">
                         <label class="block text-white">Value</label>
-                        <input type="number" name="${rulePrefix}[value]" class="border rounded-md w-full" placeholder="Enter ${ruleName.toLowerCase()} value" value="${rule ? rule.value : ''}">
+                        <input type="number" name="${rulePrefix}[value]" class="border rounded-md w-full bg-dark-100" placeholder="Enter ${ruleName.toLowerCase()} value" value="${rule ? rule.value : ''}">
+                    </div>
+
+                    <div class="mb-2">
+                        <label class="block text-white">Characteristic}</label>
+                        <select name="${rulePrefix}[characteristic]" class="border rounded-md w-full bg-dark-100" placeholder="Enter ${ruleName.toLowerCase()} characteristic">
+                            <option value="generale" ${(rule && rule.characteristic == 'generale') ? "selected" : "" }>generale</option>    
+                            <option value="alcolismo" ${(rule && rule.characteristic == 'alcolismo') ? "selected" : "" }>alcolismo</option>
+                            <option value="resistenza" ${(rule && rule.characteristic == 'resistenza') ? "selected" : "" }>resistenza</option>
+                            <option value="professionalita" ${(rule && rule.characteristic == 'professionalita') ? "selected" : "" }>professionalita</option>
+                            <option value="socialita" ${(rule && rule.characteristic == 'socialita') ? "selected" : "" }>socialita</option>
+                            <option value="seduzione" ${(rule && rule.characteristic == 'seduzione') ? "selected" : "" }>seduzione</option>
+                            <option value="pazzia" ${(rule && rule.characteristic == 'pazzia') ? "selected" : "" }>pazzia</option>
+                        </select>
                     </div>
                 </div>
 
@@ -194,7 +207,7 @@
                 <div>
                     <div class="mb-2">
                         <label class="block text-white">Description</label>
-                        <textarea name="${rulePrefix}[description]" class="tinymce-editor-small border rounded-md w-full">${rule ? rule.description : ''}</textarea>
+                        <textarea name="${rulePrefix}[description]" class="tinymce-editor-small border rounded-md w-full bg-dark-100">${rule ? rule.description : ''}</textarea>
                     </div>
                 </div>
             </div>

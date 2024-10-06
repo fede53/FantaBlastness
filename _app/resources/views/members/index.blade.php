@@ -28,6 +28,9 @@
                             <th data-column="name" data-order="asc" class="w-5/12 px-4 py-3 text-left text-white font-bold cursor-pointer bg-dark">
                                 {{ __('Name') }}
                             </th>
+                            <th data-column="email" data-order="asc" class="w-2/3 px-4 py-3 text-left text-white font-bold cursor-pointer bg-dark">
+                                {{ __('Email') }}
+                            </th>
                             <th data-column="fantaname" data-order="asc" class="w-5/12 px-4 py-3 text-left text-white font-bold cursor-pointer bg-dark">
                                 {{ __('Fantaname') }}
                             </th>
@@ -35,7 +38,8 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @forelse ($members as $member)
+                        
+                        @forelse ($members as $member) 
                             <tr class="bg-dark-100 hover:bg-dark-100 transition">
                                 <td class="px-4 py-3 text-white">
                                     @if($member['thumbnail'])
@@ -49,6 +53,7 @@
                                     @endif
                                 </td>
                                 <td class="px-4 py-3 text-white">{{ $member['name'] }}</td>
+                                <td class="px-4 py-3 text-white">{{ $member['email'] }}</td>
                                 <td class="px-4 py-3 text-white">{{ $member['fantaname'] }}</td>
                                 <td class="px-4 py-3 space-x-2">
 

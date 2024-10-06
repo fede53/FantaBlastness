@@ -20,7 +20,7 @@
             <div class="bg-video">
                 
                 <video autoplay loop>
-                    <source src="/assets/images/video9.mp4" type="video/mp4">
+                    <source src="/assets/images/video11.mp4" type="video/mp4" autoplay loop>
                     Your browser does not support the video tag.
                 </video>
             </div>

@@ -56,6 +56,7 @@ class EventMember extends Model
             'id' => $this->member->id,
             'name' => $this->member->name,
             'fantaname' => $this->member->fantaname,
+            'email' => $this->member->email,
             'image' => $this->member->image!=null ? 'members/' . $this->member->image : null,
             'thumbnail' => $this->member->image!=null ? 'members/thumbnails/' . $this->member->image : null,
             'characteristics' => json_decode($this->member->characteristics, true),
